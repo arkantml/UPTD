@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Artikel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="/darkmode.js"></script>
+    <script type="module" src="/menu.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        };
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark");
+        }
+    </script>
+    <style>
+
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #ef4444; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+         .article-image-preview { width: 100%; max-height: 200px; object-fit: cover; margin-top: 8px; border: 1px solid #e5e7eb; display: none; } /* Default hidden */
+         .article-image-preview.has-image { display: block; } 
+
+         .line-clamp-3 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+    </style>
+</head>
+<body class="text-gray-900 "> 
+
+    <div class="flex">
+        <aside
+            class="fixed top-0 left-0 h-screen w-20 bg-gray-800 text-white flex flex-col justify-between items-center py-6 hidden md:flex">
+
+            <nav class="flex flex-col items-center space-y-5">
+
+                <a href="/index.html#Beranda" class="group relative nav-link hover:bg-gray-700">
+                    <div class="p-3  rounded-full transition-colors duration-300 ">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Dashboard
+                    </span>
+                </a>
+
+                <a href="#tentang-kami" class="group relative  hover:bg-gray-700 nav-link">
+                    <div class="p-3 transition-colors rounded-full duration-300 ">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Tentang kami
+                    </span>
+                </a>
+
+                </a>
+                <a href="article.html" class="group relative nav-link hover:bg-gray-700">
+                    <div class="p-3 transition-colors rounded-full duration-300">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Artikel</span>
+                </a>
+                <a href="/member/anggota.html" class="group relative nav-link hover:bg-gray-700">
+                    <div class="p-3 transition-colors rounded-full duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A1.5 1.5 0 0118 21.75H6.75a1.5 1.5 0 01-1.499-1.632z" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Profil
+                    </span>
+                </a>
+
+                <a href="#lokasi" class="group relative nav-link hover:bg-gray-700">
+                    <div class="p-3 transition-colors rounded-full duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Lokasi
+                    </span>
+                </a>
+
+                <a href="#kontak" class="group relative nav-link hover:bg-gray-700">
+                    <div class="p-3 transition-colors rounded-full duration-300">
+                        <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
+                            <!-- Kode path diambil dari URL yang Anda berikan dan disesuaikan -->
+                            <path
+                                d="M22 6.5h-2.5V4.6c0-.82-.66-1.48-1.48-1.48H5.98C5.16 3.12 4.5 3.78 4.5 4.6v1.9H2c-.55 0-1 .45-1 1v11c0 .55.45 1 1 1h20c.55 0 1-.45 1-1v-11c0-.55-.45-1-1-1zm-1.5 11h-17V9.6l8.5 5.51 8.5-5.51V17.5zm-8.5-6.19-9.5-6.19h19l-9.5 6.19z" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Kontak
+                    </span>
+                </a>
+            </nav>
+
+            <div class="flex flex-col items-center space-y-5">
+                <a href="setcontent.html" class="group relative p-3 rounded-full hover:bg-gray-700 transition-colors ">
+                    ⚙️
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Pengaturan
+                    </span>
+                </a>
+                <button class="p-2 rounded-md border dark:border-gray-600 themeToggle">
+                    ☀️
+                </button>
+            </div>
+        </aside>
+        <header class="fixed top-0 left-0 w-full bg-white dark:bg-gray-800 shadow z-50 md:hidden">
+            <div class="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
+                <h1 class="font-bold text-xl bg-gradient-to-r from-red-500 to-orange-600 bg-clip-text text-transparent">
+                    UPTD PPA BINJAI
+                </h1>
+                <button id="burger-toggle" class="md:hidden text-2xl dark:text-white">☰</button>
+                <button class="p-2 rounded-md border dark:border-gray-600 themeToggle">
+                    ☀️
+                </button>
+            </div>
+            <nav id="mobile-menu" class="text-white hidden flex-col gap-4 p-6 bg-white dark:bg-gray-800">
+                <a href="/index.html#Beranda" class="m-2 text-lg block hover:text-red-500">Beranda</a>
+                <a href="/index.html#tentang-kami" class="m-2 text-lg block hover:text-red-500 ">Tentang</a>
+                <a href="/artikel/article.html" class="m-2 text-lg block hover:text-red-500">Artikel</a>
+                <a href="/member/anggota.html" class="m-2 text-lg block hover:text-red-500 ">Anggota</a>
+                <a href="/index.html#lokasi" class="m-2 text-lg block hover:text-red-500 ">Lokasi</a>
+                <a href="/index.html#kontak" class="m-2 text-lg block hover:text-red-500 ">Kontak</a>
+            </nav>
+        </header>
+
+        <!-- ===== Konten Utama ===== -->
+        <main class="md:ml-20 w-full min-h-screen flex flex-col p-8 md:p-12 relative dark:bg-gray-900">
+
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4 md:mb-0">Daftar Artikel</h1>
+                
+                <button id="add-article-button" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+                    + Tambah Artikel Baru
+                </button>
+            </header>
+
+            <div id="articles-loading" class="flex justify-center items-center py-10 hidden">
+                <div class="loader"></div> <span class="ml-3 text-gray-600 dark:text-gray-400">Memuat artikel...</span>
+            </div>
+
+             <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-4">
+                 <p id="no-articles-message" class="text-gray-500 dark:text-gray-400 hidden col-span-full text-center">Belum ada artikel.</p>
+             </div>
+
+            <div id="article-modal" class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center hidden z-30">
+                <div class="relative bg-white dark:bg-gray-700 w-full max-w-2xl mx-auto rounded-lg shadow-lg p-6">
+                    <h3 id="article-modal-title" class="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Tambah Artikel Baru</h3>
+                    <form id="article-form">
+                        <input type="hidden" id="article-id" name="id">
+
+                        <div class="mb-4">
+                            <label for="article-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Judul</label>
+                            <input type="text" id="article-title" name="title" required
+                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                        </div>
+
+                        <div class="mb-4">
+                             <label for="article-content" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Isi Artikel</label>
+                             <textarea id="article-content" name="content" rows="6" required
+                                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                      placeholder="Tulis isi artikel di sini..."></textarea>
+                        </div>
+
+                         <div class="mb-4">
+                            <label for="article-image" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Gambar Artikel (Opsional)</label>
+                            <input type="file" id="article-image" name="image" accept="image/*"
+                                   class="mt-1 block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100 dark:file:bg-gray-600 dark:file:text-red-300 dark:hover:file:bg-gray-500">
+                             <img id="article-image-preview" src="" alt="Preview Gambar" class="article-image-preview">
+                             <input type="hidden" id="current-image-url" name="current_image_url"> 
+                        </div>
+
+                         <div class="mb-4">
+                            <label for="article-author" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Penulis</label>
+                            <input type="text" id="article-author" name="author_name" readonly
+                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 sm:text-sm dark:bg-gray-500 dark:border-gray-500 dark:text-gray-300" placeholder="Akan diisi otomatis">
+                        </div>
+
+                        <p id="article-form-message" class="text-sm mb-4 hidden"></p>
+
+                        <div class="mt-6 flex justify-end space-x-3">
+                            <button type="button" id="cancel-article-button" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-300 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-gray-300">
+                                Batal
+                            </button>
+                            <button type="submit" id="submit-article-button" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+                                Simpan Artikel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </main>
+    </div>
+
+    <!-- Pindahkan script ke file eksternal -->
+    <script type="module" src="article.js"></script>
+
+</body>
+</html>
+
