@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Aplikasi</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        /* Tambahan gradient background */
+        body {
+            background-image: linear-gradient(to top right, #fee2e2, #dcfce7); /* Gradasi dari merah muda ke hijau muda */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <!-- Kontainer Utama dengan Shadow dan Rounded Corners -->
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl flex overflow-hidden">
+
+        <!-- Kolom Kiri: Teks / Branding -->
+        <div class="hidden md:flex flex-col justify-center items-start w-1/2 p-12 bg-gradient-to-br from-red-600 to-red-800 text-white">
+             <!-- Logo atau Ikon (Opsional) -->
+             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 mb-6 opacity-80">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
+            </svg>
+
+            <h1 class="text-3xl font-bold mb-4 leading-tight">Selamat Datang Kembali!</h1>
+            <p class="text-lg leading-relaxed opacity-90">
+                Masuk untuk mengakses dashboard Anda, mengelola profil anggota, dan melihat informasi terbaru organisasi.
+            </p>
+            <p class="mt-4 text-sm opacity-70">
+                Belum punya akun? Daftar sekarang untuk bergabung.
+            </p>
+        </div>
+
+        <!-- Kolom Kanan: Form Login -->
+        <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Login Akun</h2>
+
+            <form id="login-form">
+                <!-- Input Email -->
+                <div class="mb-5">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="email" name="email" required autocomplete="email"
+                           class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent sm:text-sm transition duration-150"
+                           placeholder="nama@email.com">
+                </div>
+
+                <!-- Input Password -->
+                <div class="mb-6">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password"
+                           class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent sm:text-sm transition duration-150"
+                           placeholder="********">
+                </div>
+
+                 <!-- Pesan Error (kosongkan awalnya) -->
+                 <p id="error-message" class="text-red-600 text-sm mb-4 hidden"></p>
+
+                <!-- Tombol Login -->
+                <button id="login-button"type="submit"
+                        class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 shadow-lg transform hover:-translate-y-0.5">
+                    Masuk
+                </button>
+
+                <!-- Link Tambahan -->
+                <div class="mt-6 text-center text-sm">
+                    <a href="#" class="font-medium text-red-600 hover:text-red-700 transition duration-150">
+                        Lupa password?
+                    </a>
+                </div>
+                <!-- PERUBAHAN: Menambahkan Link Daftar -->
+                <div class="mt-2 text-center text-sm text-gray-600">
+                    Belum punya akun?
+                    <a href="daftar.html" id="register-link" class="font-medium text-red-600 hover:text-red-700 transition duration-150">
+                        Daftar di sini
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Script untuk handle login (jika diperlukan) -->
+    <script type="module" src="login.js"></script>
+
+</body>
+</html>
+
