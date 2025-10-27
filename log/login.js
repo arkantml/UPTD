@@ -64,7 +64,7 @@ if (loginForm) {
                 console.log('Login successful:', data);
                 // Redirect ke halaman setelah login (misalnya profil.html)
                  // alert('Login berhasil! Mengarahkan ke halaman profil...'); // Placeholder sebelum redirect
-                 window.location.href = '/index.html'; // Ganti dengan halaman tujuan Anda
+                 window.location.href = '../index.html'; // Ganti dengan halaman tujuan Anda
             }
 
         } catch (error) {
@@ -88,3 +88,4 @@ if (registerLink) {
         window.location.href = 'daftar.html'; // Ganti dengan halaman register Anda
     });
 }
+
