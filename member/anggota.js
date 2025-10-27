@@ -206,7 +206,7 @@ async function handleAddMember(event) {
         const { data: { session } } = await db.auth.getSession();
         currentUser = session?.user ?? null; // Gunakan optional chaining
     }
-    if (!currentUser) { alert('Sesi tidak valid. Silakan login kembali.'); window.location.href = '/log/login.html'; return; }
+    if (!currentUser) { alert('Sesi tidak valid. Silakan login kembali.'); window.location.href = 'log/login.html'; return; }
 
     const formData = new FormData(addMemberForm); const avatarFile = addAvatarInput ? addAvatarInput.files[0] : null;
     if (submitAddButton) { submitAddButton.disabled = true; submitAddButton.textContent = 'Menyimpan...'; }
@@ -253,7 +253,7 @@ async function handleSaveEdit(event) {
         const { data: { session } } = await db.auth.getSession();
         currentUser = session?.user ?? null;
     }
-    if (!currentUser) { alert('Sesi berakhir. Login lagi.'); window.location.href = '/log/login.html'; return; }
+    if (!currentUser) { alert('Sesi berakhir. Login lagi.'); window.location.href = 'log/login.html'; return; }
 
     const formData = new FormData(editMemberForm); const memberId = formData.get('id'); const idToUpdate = parseInt(memberId, 10); if (isNaN(idToUpdate)) return;
     const newAvatarFile = editAvatarInput ? editAvatarInput.files[0] : null; const currentAvatarUrl = editMemberForm.dataset.currentAvatarUrl || null;
@@ -295,7 +295,7 @@ async function handleDeleteMember() {
         const { data: { session } } = await db.auth.getSession();
         currentUser = session?.user ?? null;
     }
-    if (!currentUser) { alert('Sesi berakhir. Login lagi.'); window.location.href = '/log/login.html'; return; }
+    if (!currentUser) { alert('Sesi berakhir. Login lagi.'); window.location.href = 'log/login.html'; return; }
 
     const memberIdToDelete = currentMemberIdToDelete; console.log(`Deleting ID: ${memberIdToDelete}`);
     if(confirmDeleteButton) { confirmDeleteButton.disabled = true; confirmDeleteButton.textContent = 'Menghapus...'; } if(cancelDeleteButton) cancelDeleteButton.disabled = true;
@@ -353,7 +353,7 @@ function setupRealtime() {
 }
 
 // Logout
-async function handleLogout() { if (!db || !logoutButton) return; try { logoutButton.disabled = true; const { error } = await db.auth.signOut(); if (error) throw error; window.location.href = '/log/login.html'; } catch (err) { console.error('Logout err:', err); alert(`Gagal logout: ${err.message}`); logoutButton.disabled = false; } }
+async function handleLogout() { if (!db || !logoutButton) return; try { logoutButton.disabled = true; const { error } = await db.auth.signOut(); if (error) throw error; window.location.href = 'log/login.html'; } catch (err) { console.error('Logout err:', err); alert(`Gagal logout: ${err.message}`); logoutButton.disabled = false; } }
 
 // Auth & init: Cek sesi awal, lalu pasang listener
 async function checkAuthStateAndInit() {
@@ -370,10 +370,10 @@ async function checkAuthStateAndInit() {
             const userBefore = currentUser; // Simpan state sebelumnya
             currentUser = session ? session.user : null;
             const isLoggedIn = !!currentUser;
-            const isOnLoginPage = window.location.pathname.includes('/log/login.html');
+            const isOnLoginPage = window.location.pathname.includes('log/login.html');
 
             if (!isLoggedIn && !isOnLoginPage) {
-                console.log('Redirecting to login (listener)'); window.location.href = '/log/login.html';
+                console.log('Redirecting to login (listener)'); window.location.href = 'log/login.html';
             } else if (isLoggedIn) {
                 if (userEmailSpan) userEmailSpan.textContent = currentUser.email || 'User';
                 // Jika event = SIGNED_IN atau INITIAL_SESSION, dan UI belum tampil
@@ -422,10 +422,10 @@ async function checkAuthStateAndInit() {
             setupRealtime(); // Setup realtime segera
        } else {
             // Jika tidak ada sesi DAN tidak di halaman login, redirect
-            if (!window.location.pathname.includes('/log/login.html')) {
+            if (!window.location.pathname.includes('log/login.html')) {
                  console.log('Initial check: No session, redirecting to login.');
                  if(authLoading) authLoading.textContent = 'Mengarahkan ke login...';
-                 window.location.href = '/log/login.html';
+                 window.location.href = 'log/login.html';
             } else {
                  // Di halaman login tanpa sesi, sembunyikan loading
                  if(authLoading) authLoading.classList.add('hidden');
@@ -475,4 +475,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Panggil checkAuthStateAndInit setelah semua listener terpasang
     checkAuthStateAndInit();
 });
+
 
