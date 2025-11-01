@@ -12,6 +12,7 @@
     <script type="module" src="../menu.js"></script>
     <script type="module" src="../darkmode.js"></script>
     <link rel="stylesheet" href="../style.css">
+    <a href="../setting/setcontent.html" class="m-2 text-lg block hover:text-red-500 ">Setelan</a>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -25,7 +26,6 @@
 <body class="bg-white text-gray-900 dark:bg-gray-900">
 
 
-    <!-- ===== Sidebar ===== -->
     <aside
         class="fixed top-0 left-0 h-screen w-20 bg-gray-800 text-white flex flex-col justify-between items-center py-6 hidden md:flex">
 
@@ -149,20 +149,16 @@
         </nav>
     </header>
 
-    <!-- ===== Konten Utama ===== -->
     <main class="md:ml-24 min-h-screen flex flex-col p-8 relative bg-white text-gray-900 dark:bg-gray-900">
 
-        <!-- Header dengan Info User & Logout -->
         <header class="flex justify-between items-center mb-6 relative">
             <h1 class="text-3xl font-bold text-red-600">Profil Anggota</h1>
 
-            <!-- Loading Auth -->
             <div id="auth-loading" class="flex items-center text-gray-500">
                 <div class="loader mr-2 !w-5 !h-5 !border-2 !border-t-red-500"></div>
                 Memeriksa status login...
             </div>
 
-            <!-- Dropdown Info User -->
             <div id="user-info-section" class="relative hidden group"> <!-- Awalnya hidden -->
                 <button class="flex items-center space-x-2 p-2 rounded hover:bg-gray-100">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -179,7 +175,6 @@
                             clip-rule="evenodd" />
                     </svg>
                 </button>
-                <!-- Dropdown Content -->
                 <div
                     class="absolute right-0 mt-1 w-48 bg-white rounded-md shadow-lg py-1 z-20 hidden group-hover:block">
                     <button id="logout-button"
@@ -190,9 +185,7 @@
             </div>
         </header>
 
-        <!-- Konten Utama (awalnya hidden) -->
-        <!-- == Tampilan Daftar/Galeri == -->
-        <div id="list-view" class="flex-grow hidden"> <!-- Awalnya hidden -->
+        <div id="list-view" class="flex-grow hidden"> 
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-semibold text-gray-700 dark:text-white">Galeri Profil</h2>
                 <button id="add-member-button"
@@ -201,13 +194,11 @@
                 </button>
             </div>
 
-            <!-- Loading indicator for list -->
             <div id="list-loading" class="flex justify-center items-center py-10 hidden">
                 <div class="loader"></div>
                 <span class="ml-3 text-gray-600">Memuat anggota...</span>
             </div>
 
-            <!-- Kontainer slider horizontal untuk kartu profil -->
             <div id="profile-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-4">
 
                 <p id="no-members-message" class="text-gray-500 hidden col-span-full text-center">Belum ada anggota.
@@ -215,21 +206,16 @@
             </div>
         </div>
 
-        <!-- == Tampilan Detail Profil == -->
-        <div id="detail-view" class="hidden flex-grow relative"> <!-- Awalnya hidden -->
-            <!-- Loading indicator for detail -->
+        <div id="detail-view" class="hidden flex-grow relative">
             <div id="detail-loading"
                 class="absolute inset-0 bg-white bg-opacity-75 flex justify-center items-center z-10 hidden">
                 <div class="loader"></div>
                 <span class="ml-3 text-gray-600">Memuat detail anggota...</span>
             </div>
 
-            <!-- Konten Detail -->
             <div class="relative">
-                <!-- Banner -->
                 <div class="h-48 md:h-64 bg-gradient-to-r from-gray-300 to-gray-400 rounded-t-lg relative "
                     style="background-image: url(../Img/Desain\ tanpa\ judul\ \(1\).png); background-size: cover; background-position: center;">
-                    <!-- Tombol Edit di atas banner -->
                     <button id="edit-member-button" data-member-id=""
                         class="absolute top-4 right-4 bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 inline-flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -239,7 +225,6 @@
                         </svg>
                         Edit Profil
                     </button>
-                    <!-- Tombol Kembali & Hapus di Detail -->
                     <div class="absolute top-4 left-4 flex space-x-2 z-20">
                         <button id="back-to-list-button"
                             class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 inline-flex items-center">
@@ -261,9 +246,7 @@
                     </div>
                 </div>
 
-                <!-- Info Profil -->
                 <div class="relative flex flex-col items-center px-4 -mt-20 md:-mt-24 pb-8">
-                    <!-- Foto Profil -->
                     <div
                         class="w-32 h-32 md:w-40 md:h-40 bg-gray-200 rounded-full border-4 border-white shadow-lg overflow-hidden flex items-center justify-center text-gray-500 mb-4 flex-shrink-0">
                         <img id="detail-avatar-img" src="" alt="Foto Profil" class="w-full h-full object-cover hidden">
@@ -281,14 +264,12 @@
                     </div>
                 </div>
 
-                <!-- Bio & Info Tambahan -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Kolom Kiri: Tentang Saya -->
                     <div class="md:col-span-2 bg-gray-50 p-6 rounded-lg shadow">
                         <h3 class="text-xl font-semibold mb-3">Tentang Saya</h3>
                         <p id="detail-bio" class="text-gray-700 leading-relaxed">Bio anggota...</p>
                     </div>
-                    <!-- Kolom Kanan: Info -->
                     <div class="bg-gray-50 p-6 rounded-lg shadow">
                         <h3 class="text-xl font-semibold mb-3">Info</h3>
                         <div class="space-y-3 text-sm text-gray-600">
@@ -316,8 +297,6 @@
             </div>
         </div>
 
-        <!-- == Modals (Tambah, Edit, Hapus) == -->
-        <!-- Modal Tambah Anggota -->
         <div id="add-modal"
             class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center hidden z-30">
             <div class="relative bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg p-6">
@@ -371,7 +350,6 @@
             </div>
         </div>
 
-        <!-- Modal Edit Anggota -->
         <div id="edit-modal"
             class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center hidden z-30">
             <div class="relative bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg p-6">
@@ -426,7 +404,6 @@
             </div>
         </div>
 
-        <!-- Modal Konfirmasi Hapus -->
         <div id="delete-confirm-modal"
             class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center hidden z-40">
             <div class="relative bg-white w-11/12 md:max-w-sm mx-auto rounded-lg shadow-lg p-6 text-center">
@@ -450,10 +427,10 @@
     </main>
 
 
-    <!-- Pindahkan script ke file eksternal -->
     <script type="module" src="anggota.js"></script>
 
 </body>
 
 
 </html>
+
