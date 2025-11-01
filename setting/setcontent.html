@@ -4,55 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pengaturan Akun</title>
-    <!-- Memuat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Memuat Supabase Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="text-gray-900"> 
 
     <div class="flex">
-        <!-- ===== Sidebar ===== -->
-        <aside class="fixed top-0 left-0 h-screen w-20 bg-gray-800 text-white flex flex-col justify-between items-center py-6">
+        <aside
+            class="fixed top-0 left-0 h-screen w-20 bg-gray-800 text-white flex flex-col justify-between items-center py-6 hidden md:flex">
+
             <nav class="flex flex-col items-center space-y-5">
-                
-               
-                <a href="index.html" class="group relative p-3 rounded-full hover:bg-gray-700 transition-colors">
-                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
-                    <span class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Dashboard</span>
+
+                <a href="../index.html" class="group relative nav-link hover:bg-gray-700">
+                    <div class="p-3  rounded-full transition-colors duration-300 ">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Dashboard
+                    </span>
                 </a>
-                
-                <a href="#" class="group relative p-3 rounded-full hover:bg-gray-700 transition-colors">
-                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c0 .662.537 1.2 1.2 1.2s1.2-.538 1.2-1.2V9.9c0-.662-.537-1.2-1.2-1.2s-1.2.538-1.2 1.2v.858zM12 18a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" /></svg>
-                    <span class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Informasi</span>
+
+                <a href="../index.html#tentang-kami" class="group relative  hover:bg-gray-700 nav-link">
+                    <div class="p-3 transition-colors rounded-full duration-300 ">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Tentang kami
+                    </span>
                 </a>
-                <a href="profil.html" class="group relative p-3 rounded-full hover:bg-gray-700 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zM12 6a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5zM12 15a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75z" clip-rule="evenodd" /></svg>
-                    <span class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Profil</span>
+
                 </a>
-                 <a href="#" class="group relative p-3 rounded-full hover:bg-gray-700 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 005.16-4.053l-.008-.004c3.037-4.033 5.304-8.814 5.304-13.232 0-5.385-4.365-9.75-9.75-9.75S1.5 4.615 1.5 10c0 4.418 2.267 9.199 5.305 13.232l-.008.004a16.975 16.975 0 005.159 4.053zM12 12.75a2.75 2.75 0 100-5.5 2.75 2.75 0 000 5.5z" clip-rule="evenodd" /></svg>
-                    <span class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Lokasi</span>
+                <a href="../artikel/article.html" class="group relative nav-link hover:bg-gray-700">
+                    <div class="p-3 transition-colors rounded-full duration-300">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Artikel</span>
                 </a>
-                <a href="#" class="group relative p-3 rounded-full hover:bg-gray-700 transition-colors">
-                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 2.05l-1.493.995a18.65 18.65 0 005.163 5.163l.995-1.493a1.875 1.875 0 012.05-.694l4.423 1.105c.834.209 1.42.959 1.42 1.819V19.5a3 3 0 01-3 3h-2.25C6.55 22.5 1.5 17.45 1.5 10.5V8.25V4.5z" clip-rule="evenodd" /></svg>
-                    <span class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Kontak</span>
+                <a href="../member/anggota.html" class="group relative nav-link hover:bg-gray-700">
+                    <div class="p-3 transition-colors rounded-full duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A1.5 1.5 0 0118 21.75H6.75a1.5 1.5 0 01-1.499-1.632z" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Profil
+                    </span>
+                </a>
+
+                <a href="../index.html#lokasi" class="group relative nav-link hover:bg-gray-700">
+                    <div class="p-3 transition-colors rounded-full duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Lokasi
+                    </span>
+                </a>
+
+                <a href="../index.html#kontak" class="group relative nav-link hover:bg-gray-700">
+                    <div class="p-3 transition-colors rounded-full duration-300">
+                        <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
+                            <!-- Kode path diambil dari URL yang Anda berikan dan disesuaikan -->
+                            <path
+                                d="M22 6.5h-2.5V4.6c0-.82-.66-1.48-1.48-1.48H5.98C5.16 3.12 4.5 3.78 4.5 4.6v1.9H2c-.55 0-1 .45-1 1v11c0 .55.45 1 1 1h20c.55 0 1-.45 1-1v-11c0-.55-.45-1-1-1zm-1.5 11h-17V9.6l8.5 5.51 8.5-5.51V17.5zm-8.5-6.19-9.5-6.19h19l-9.5 6.19z" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Kontak
+                    </span>
                 </a>
             </nav>
+
             <div class="flex flex-col items-center space-y-5">
-                
-                <a href="#" class="group relative">
-                    <div class="p-3 bg-red-600 rounded">
-                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.946 1.55l-.57 2.199a.75.75 0 001.176.92l1.95-1.448a.75.75 0 01.99 0l1.95 1.448a.75.75 0 001.176-.92l-.57-2.199A2.25 2.25 0 0012.922 2.25h-1.844zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM10.06 6.375a.75.75 0 00.92-1.176l-1.448-1.95a.75.75 0 00-.99 0l-1.448 1.95a.75.75 0 00.92 1.176l2.046-1.515zM14.862 4.199a.75.75 0 00-.92-1.176l-1.448 1.95a.75.75 0 00.99 0l1.448-1.95a.75.75 0 00-.07-.001zM18 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H18.75A.75.75 0 0118 12zM19.801 14.862a.75.75 0 00-1.176-.92l-1.95 1.448a.75.75 0 01-.99 0l-1.95-1.448a.75.75 0 00-1.176.92l.57 2.199A2.25 2.25 0 0012.922 21h1.844c.917 0 1.699-.663 1.946-1.55l.57-2.199zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM4.199 9.138a.75.75 0 001.176.92l1.95-1.448a.75.75 0 01.99 0l1.95 1.448a.75.75 0 001.176-.92l-.57-2.199A2.25 2.25 0 008.078 4.5H6.234c-.917 0-1.699.663-1.946 1.55l-.57 2.199zM6.375 13.94a.75.75 0 00-.92 1.176l1.448 1.95a.75.75 0 00.99 0l1.448-1.95a.75.75 0 00-.92-1.176l-2.046 1.515zM12 15a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg>
-                    </div>
-                    <span class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Pengaturan</span>
+                <a href="setcontent.html" class="group relative p-3 rounded-full hover:bg-gray-700 transition-colors ">
+                    ⚙️
+                    <span
+                        class="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1 bg-gray-900 text-white text-sm rounded-md shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Pengaturan
+                    </span>
                 </a>
-                <button class="p-3 bg-white rounded-full"></button> 
+                <button class="p-2 rounded-md border dark:border-gray-600 themeToggle">
+                    ☀️
+                </button>
             </div>
         </aside>
+        <header class="fixed top-0 left-0 w-full bg-white dark:bg-gray-800 shadow z-50 md:hidden">
+            <div class="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
+                <h1 class="font-bold text-xl bg-gradient-to-r from-red-500 to-orange-600 bg-clip-text text-transparent">
+                    UPTD PPA BINJAI
+                </h1>
+                <button id="burger-toggle" class="md:hidden text-2xl dark:text-white">☰</button>
+                
+                <button  class="p-2 rounded-md border dark:border-gray-600 themeToggle">
+                    ☀️
+                </button>
+            </div>
+            <nav id="mobile-menu" class="hidden flex-col gap-4 p-6 bg-white dark:bg-gray-800">
+                <a href="../index.html#Beranda" class="m-2 text-lg block hover:text-red-500">Beranda</a>
+                <a href="../index.html#tentang-kami" class="m-2 text-lg block hover:text-red-500 ">Tentang</a>
+                <a href="../artikel/article.html" class="m-2 text-lg block hover:text-red-500">Artikel</a>
+                <a href="../member/anggota.html" class="m-2 text-lg block hover:text-red-500 ">Anggota</a>
+                <a href="../index.html#lokasi" class="m-2 text-lg block hover:text-red-500 ">Lokasi</a>
+                <a href="../index.html#kontak" class="m-2 text-lg block hover:text-red-500 ">Kontak</a>
+                <a href="../setting/setcontent.html" class="m-2 text-lg block hover:text-red-500 ">Setelan</a>
+            </nav>
+        </header>
 
-        <!-- ===== Konten Utama ===== -->
         <main class="ml-20 w-full min-h-screen flex flex-col p-8 md:p-12 relative space-y-8">
 
             <h1 class="text-3xl font-bold text-gray-800">Pengaturan Akun</h1>
@@ -113,8 +196,8 @@
         </main>
     </div>
 
-    <!-- Pindahkan script ke file eksternal -->
     <script type="module" src="setcontent.js"></script>
 
 </body>
 </html>
+
