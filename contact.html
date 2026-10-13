@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#344d3e">
+    <meta name="description" content="Portal Pengaduan Online Resmi UPTD PPA Kota Binjai - SAPA AMAN. Layanan pengaduan aman, rahasia, dan gratis untuk perempuan dan anak korban kekerasan.">
+    <title>Pengaduan Online SAPA AMAN | UPTD PPA Kota Binjai</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="reporting.js" defer></script>
+    <script src="contact.js" defer></script>
+</head>
+
+<body class="portfolio-page">
+    <!-- Bar Darurat & Tombol Quick Exit -->
+    <aside class="emergency-bar" aria-label="Layanan Bantuan Darurat">
+        <div class="emergency-inner">
+            <div class="emergency-text">
+                <span class="emergency-badge">Darurat 24 Jam</span>
+                <span>Hotline Nasional <strong>SAPA 129</strong> · Kerahasiaan Anda Dilindungi Hukum</span>
+            </div>
+            <div class="emergency-actions">
+                <a class="btn-emergency-call" href="tel:129">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    Panggil 129
+                </a>
+                <button class="btn-quick-exit" onclick="quickExit()" title="Tekan ESC atau klik untuk segera menutup situs demi keselamatan Anda">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    Tutup Cepat (ESC)
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Header Portal -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html" aria-label="Kembali ke Beranda UPTD PPA">
+                <span class="brand-mark">PPA</span>
+                <span class="brand-copy">
+                    <strong>UPTD PPA</strong>
+                    <small>PORTAL PENGADUAN ONLINE</small>
+                </span>
+            </a>
+
+            <nav class="main-nav" aria-label="Navigasi Pengaduan">
+                <a href="index.html">← Kembali ke Beranda</a>
+                <a href="index.html#layanan">Daftar Layanan</a>
+                <a href="index.html#faq">Tanya Jawab</a>
+                <a class="nav-cta" href="tel:129">Hotline 129 <span aria-hidden="true">📞</span></a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section-pad" style="background: #f7f4ef; min-height: 85vh;">
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <div class="section-heading" style="margin-bottom: 32px;">
+                <p class="eyebrow"><span class="eyebrow-dot"></span> SAPA AMAN · Sistem Pengaduan & Advokasi</p>
+                <h2>Formulir Pengaduan<br><em>Resmi & Rahasia.</em></h2>
+                <p class="lead" style="margin-top: 14px; max-width: 720px;">
+                    Sampaikan laporan tindak kekerasan terhadap perempuan atau anak dengan aman. Anda dapat memilih opsi <strong>Anonim (Tanpa Nama Asli)</strong> apabila merasa keselamatan Anda terancam.
+                </p>
+            </div>
+
+            <div class="report-container" style="margin-top: 24px;">
+                <!-- Kotak Formulir -->
+                <div class="report-card">
+                    <div class="report-security-badge">
+                        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                        <div>
+                            <strong>Kerahasiaan Dijamin 100% oleh Undang-Undang</strong>
+                            <p>Sesuai UU TPKS No. 12 Tahun 2022, data dan identitas korban maupun pelapor dilindungi kerahasiaannya oleh aparatur UPTD PPA Kota Binjai.</p>
+                        </div>
+                    </div>
+
+                    <form id="contact-form" class="report-form">
+                        <!-- Mode Identitas -->
+                        <div class="form-group-pro">
+                            <label class="form-label-pro">
+                                <span>Pilihan Identitas Pelapor <span class="req">*</span></span>
+                                <span class="hint">Pilih tingkat privasi Anda</span>
+                            </label>
+                            <div class="anon-toggle-group">
+                                <label class="anon-option selected" id="opt-contact-anon" onclick="toggleContactAnon(true)">
+                                    <input type="radio" name="anon_mode" value="anon" checked>
+                                    <span>🔒 Anonim / Samaran</span>
+                                </label>
+                                <label class="anon-option" id="opt-contact-real" onclick="toggleContactAnon(false)">
+                                    <input type="radio" name="anon_mode" value="real">
+                                    <span>👤 Nama Asli Sesuai KTP</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Nama & Email / Kontak -->
+                        <div class="form-row">
+                            <div class="form-group-pro">
+                                <label class="form-label-pro" for="contact-name">
+                                    <span id="contact-name-label">Nama Samaran / Inisial</span>
+                                    <span class="hint">(Opsional jika anonim)</span>
+                                </label>
+                                <input type="text" id="contact-name" class="form-control-pro" placeholder="Contoh: Bunga / Inisial S">
+                            </div>
+
+                            <div class="form-group-pro">
+                                <label class="form-label-pro" for="contact-email">
+                                    <span>Kontak Aman (No. WA / Telepon) <span class="req">*</span></span>
+                                    <span class="hint">Untuk dihubungi petugas</span>
+                                </label>
+                                <input type="text" id="contact-email" class="form-control-pro" placeholder="08xxxxxxxxxx atau email aman" required>
+                            </div>
+                        </div>
+
+                        <!-- Hubungan & Kategori Kasus -->
+                        <div class="form-row">
+                            <div class="form-group-pro">
+                                <label class="form-label-pro" for="contact-role">
+                                    <span>Status Pelapor <span class="req">*</span></span>
+                                </label>
+                                <select id="contact-role" class="form-control-pro" required>
+                                    <option value="" disabled selected>Pilih status pelapor...</option>
+                                    <option value="Korban Langsung">Saya Korban Langsung</option>
+                                    <option value="Keluarga Korban">Keluarga / Kerabat Korban</option>
+                                    <option value="Saksi Kejadian">Saksi / Tetangga</option>
+                                    <option value="Masyarakat / Lembaga">Masyarakat Umum / Lembaga</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group-pro">
+                                <label class="form-label-pro" for="contact-category">
+                                    <span>Kategori Dugaan Kasus <span class="req">*</span></span>
+                                </label>
+                                <select id="contact-category" class="form-control-pro" required>
+                                    <option value="" disabled selected>Pilih jenis kekerasan...</option>
+                                    <option value="KDRT">Kekerasan Dalam Rumah Tangga (KDRT)</option>
+                                    <option value="Kekerasan Anak">Kekerasan Fisik / Psikis Terhadap Anak</option>
+                                    <option value="Kekerasan Seksual">Kekerasan Seksual / Pelecehan</option>
+                                    <option value="Penelantaran">Penelantaran Ekonomi & Keluarga</option>
+                                    <option value="TPPO">Tindak Pidana Perdagangan Orang (TPPO)</option>
+                                    <option value="KBGO">Kekerasan Gender Online (KBGO)</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Kebutuhan Mendesak -->
+                        <div class="form-group-pro">
+                            <label class="form-label-pro">
+                                <span>Kebutuhan Bantuan Mendesak</span>
+                                <span class="hint">Pilih yang diperlukan</span>
+                            </label>
+                            <div class="checkbox-pills-grid">
+                                <label class="checkbox-pill-label">
+                                    <input type="checkbox" name="needs" value="Medis">
+                                    <span>Medis Darurat & Visum</span>
+                                </label>
+                                <label class="checkbox-pill-label">
+                                    <input type="checkbox" name="needs" value="Psikologis">
+                                    <span>Konseling Psikolog / Trauma</span>
+                                </label>
+                                <label class="checkbox-pill-label">
+                                    <input type="checkbox" name="needs" value="Hukum">
+                                    <span>Bantuan Hukum & BAP</span>
+                                </label>
+                                <label class="checkbox-pill-label">
+                                    <input type="checkbox" name="needs" value="Shelter">
+                                    <span>Rumah Aman (Shelter)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Kronologi Laporan -->
+                        <div class="form-group-pro">
+                            <label class="form-label-pro" for="contact-message">
+                                <span>Kronologi Kasus / Uraian Kejadian <span class="req">*</span></span>
+                                <span class="hint">Tuliskan ringkasan kejadian</span>
+                            </label>
+                            <textarea id="contact-message" class="form-control-pro" placeholder="Jelaskan secara ringkas kejadian, tempat kejadian (wilayah Binjai), dan kondisi korban..." required></textarea>
+                        </div>
+
+                        <!-- Catatan Waktu Aman Dihubungi -->
+                        <div class="form-group-pro">
+                            <label class="form-label-pro" for="contact-safe-time">
+                                <span>Catatan / Waktu Aman Dihubungi</span>
+                                <span class="hint">Misal: Jam 09.00 - 12.00 saat aman</span>
+                            </label>
+                            <input type="text" id="contact-safe-time" class="form-control-pro" placeholder="Contoh: Hubungi hanya via chat WhatsApp di jam kerja">
+                        </div>
+
+                        <button type="submit" id="contact-submit-button" class="btn-report-submit">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                            Kirim Pengaduan Sekarang
+                        </button>
+                    </form>
+
+                    <div id="contact-status" class="report-ticket-alert" role="alert" aria-live="polite"></div>
+                </div>
+
+                <!-- Sidebar Bantuan & Keamanan -->
+                <div class="report-sidebar">
+                    <div class="report-side-card" style="border-left: 4px solid #8b1e1e;">
+                        <h4>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#8b1e1e"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                            Hotline Darurat 24 Jam
+                        </h4>
+                        <p>Jika ancaman fisik sedang berlangsung di depan Anda, jangan menunggu pesan formulir dibaca:</p>
+                        <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
+                            <a href="tel:129" class="btn-emergency-call" style="background: #8b1e1e; justify-content: center; padding: 10px;">
+                                📞 Panggil SAPA 129 (Bebas Pulsa)
+                            </a>
+                            <a href="https://wa.me/628123456789" class="btn-emergency-call" style="background: #25d366; justify-content: center; padding: 10px; color: #fff;">
+                                💬 WhatsApp Piket 0812-3456-789
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="report-side-card">
+                        <h4>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--green)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+                            Layanan 100% Bebas Biaya
+                        </h4>
+                        <p>Semua penanganan korban di UPTD PPA Kota Binjai tidak dipungut biaya apa pun:</p>
+                        <ul style="padding-left: 18px; margin: 8px 0 0; font-size: 11.5px; color: var(--muted); line-height: 1.6;">
+                            <li>Pendampingan hukum & paralegal gratis</li>
+                            <li>Konseling psikologis trauma gratis</li>
+                            <li>Fasilitasi visum rumah sakit gratis</li>
+                            <li>Akomodasi rumah aman (shelter) gratis</li>
+                        </ul>
+                    </div>
+
+                    <div class="report-side-card">
+                        <h4>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--coral)"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm7 10c0 4.52-2.98 8.69-7 9.93-4.02-1.24-7-5.41-7-9.93V6.3l7-3.11 7 3.11V11z"/></svg>
+                            Protokol Keamanan Pribadi
+                        </h4>
+                        <p>Untuk mencegah jejak digital Anda dilihat oleh pelaku:</p>
+                        <ul style="padding-left: 18px; margin: 8px 0 0; font-size: 11.5px; color: var(--muted); line-height: 1.6;">
+                            <li>Gunakan mode penyamaran (Incognito/Private).</li>
+                            <li>Hapus riwayat browser sesudah mengirim formulir.</li>
+                            <li>Tekan tombol <strong>Tutup Cepat (ESC)</strong> jika situasi mendadak berbahaya.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Ringkas -->
+    <footer class="footer-wrapper" style="padding-top: 36px; padding-bottom: 24px;">
+        <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+            <span>© 2026 UPTD PPA Kota Binjai · Unit Pelaksana Teknis Daerah Perlindungan Perempuan & Anak</span>
+            <span><a href="index.html" style="color: #cbd5ce;">Kembali ke Beranda Utama ↗</a></span>
+        </div>
+    </footer>
+
+    <script>
+        function quickExit() {
+            window.location.replace("https://www.google.com");
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                quickExit();
+            }
+        });
+
+        function toggleContactAnon(isAnon) {
+            const optAnon = document.getElementById('opt-contact-anon');
+            const optReal = document.getElementById('opt-contact-real');
+            const nameLabel = document.getElementById('contact-name-label');
+            const nameInput = document.getElementById('contact-name');
+
+            if (isAnon) {
+                optAnon.classList.add('selected');
+                optReal.classList.remove('selected');
+                nameLabel.textContent = 'Nama Samaran / Inisial';
+                nameInput.placeholder = 'Contoh: Bunga / Inisial S';
+                nameInput.required = false;
+            } else {
+                optReal.classList.add('selected');
+                optAnon.classList.remove('selected');
+                nameLabel.textContent = 'Nama Lengkap Sesuai KTP *';
+                nameInput.placeholder = 'Masukkan nama lengkap Anda';
+                nameInput.required = true;
+            }
+        }
+    </script>
+</body>
+
+</html>

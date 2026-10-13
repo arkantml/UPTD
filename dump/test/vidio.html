@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+    <script type="module" src="vidio.js"></script>
+</head>
+<body>
+    <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <video autoplay muted playsinline 
+           class="absolute top-0 left-0 w-full h-full object-cover z-0" id="video-background">
+        
+        <source src="WebRobotik.mp4" type="video/mp4">
+        
+        Browser Anda tidak mendukung tag video HTML5.
+    </video>
+
+    <div class="absolute top-0 left-0 w-full h-full bg-black opacity-40 z-10"></div>
+
+    <div class="relative z-20 text-white text-center p-6 bg-black bg-opacity-50 rounded-lg max-w-lg mx-auto">
+        <h1 class="text-5xl font-bold mb-4">Selamat Datang di Beranda Kami</h1>
+        <p class="text-xl mb-6">Tonton video di latar belakang untuk pengalaman imersif.</p>
+        <a href="#lanjut" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-full transition duration-300 shadow-lg">Jelajahi Sekarang</a>
+    </div>
+</section>
+</body>
+
+</html>
