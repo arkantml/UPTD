@@ -56,7 +56,7 @@ class MobileMenu {
 
     handleResize() {
         // Auto close menu ketika window di-resize ke desktop size
-        if (window.innerWidth >= 768) { // md breakpoint
+        if (window.innerWidth > 900) {
             this.closeMenu();
         }
     }
